@@ -35,7 +35,7 @@ with st.container (border=1):
 import geopandas as gpd
 import folium
 from folium import Choropleth
-from streamlit_folium import st_folium
+from streamlit_folium import st_folium 
 import tempfile
 import os 
 

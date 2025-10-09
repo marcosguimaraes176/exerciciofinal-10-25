@@ -1,11 +1,17 @@
-from turtle import color
 import streamlit as st
-import time
 import pandas as pd
-import numpy as np
-import openpyxl
-st.title("Programa Música na Rede")
-#st.header("Escolas, Estudantes, Projetos")
+import geopandas as gpd
+import folium
+from folium import Choropleth
+from streamlit_folium import st_folium
+import os
+
+# -----------------------------------------------------------
+# CONFIGURAÇÃO GERAL DA PÁGINA
+# -----------------------------------------------------------
+st.set_page_config(page_title="Programa Música na Rede", layout="wide")
+
+st.title("🎵 Programa Música na Rede")
 st.markdown(
     """
     <h1 style='font-size:20px; color:#000080;'>
@@ -14,7 +20,11 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-col1, col2=st.columns([0.50,0.50])
+
+# -----------------------------------------------------------
+# COLUNAS PRINCIPAIS DO LAYOUT
+# -----------------------------------------------------------
+col1, col2 = st.columns([0.5, 0.5])
 
 with st.sidebar:
     st.markdown("[Coluna1](#projetos)")
@@ -35,7 +45,7 @@ with st.container (border=1):
 import geopandas as gpd
 import folium
 from folium import Choropleth
-from streamlit_folium import st_folium 
+from streamlit_folium import st_folium
 import tempfile
 import os 
 
@@ -44,18 +54,17 @@ st.set_page_config(page_title="Programa Música na Rede", layout="wide")
 
 # Função para carregar os dados geográficos
 @st.cache_data
-def load_geodata(caminho_geodata):
+def load_geodata(caminho_geotada):
     """Carrega os dados do shapefile"""
     return gpd.read_file('data/ES_Municipios_2024.shp')
 
-# Função para carregar os dados dos projetos
 @st.cache_data
 def load_project_data(csv_path):
-    """Carrega os dados dos projetos do CSV"""
+    """Carrega os dados de projetos (CSV)."""
     return pd.read_csv(csv_path)
 
 geo_data = gpd.read_file("data/ES_Municipios_2024.shp")
-project_data = pd.read_csv("data/df_bandas.csv")
+project_data = pd.read_csv(r"data/df_bandas.csv")
 
     
         
@@ -64,61 +73,60 @@ def create_choropleth_map(geo_data, project_data, BANDAS, blue):
 
 # Merge dos dados geográficos com os dados do projeto
     merged_data = geo_data.merge(
-        project_data, 
-        left_on='NM_MUN',  # Ajuste conforme a coluna de nome do município no shapefile
-        right_on='municipio',  # Ajuste conforme a coluna no CSV
+        project_data,
+        left_on='NM_MUN',        # nome do município no shapefile
+        right_on='MUNICÍPIO',    # nome do município no CSV
         how='left'
     )
 
-    # Criar coluna binária para o projeto específico
-    project_column = f'projeto_{BANDAS.upper()}'
-    merged_data[project_column] = merged_data['projeto'].apply(
-        lambda x: 1 if BANDAS.upper() in str(x) else 0
-    )        
-    # Criar o mapa
+    # Cria coluna binária: 1 se o município tem o projeto, 0 caso contrário
+    project_column = f'PROJETO_{projeto_nome}'
+    merged_data[project_column] = merged_data['DETALHE_PROJETO'].apply(
+        lambda x: 1 if projeto_nome in str(x).upper() else 0
+    )
+
+    # Cria o mapa base
     m = folium.Map(
-        location=[-19.1834, -40.3086], 
+        location=[-19.1834, -40.3086],  # Centralizado no ES
         zoom_start=7,
         tiles='CartoDB positron'
-    )  # Centralizado no Espírito Santo
-    
+    )
+
+    # Define a paleta de cores
+    fill_color = (
+        'YlGnBu' if color == 'blue' else
+        'YlOrRd' if color == 'red' else
+        'PuRd' if color == 'purple' else
+        'Greens'
+    )
+
+    # Cria o coroplético
     choropleth = Choropleth(
-        geo_data=merged_data.__geo_interface__,
-        data=merged_data,
-        columns=['NM_MUN', project_column],  # Ajuste conforme as colunas
-        key_on='feature.properties.NM_MUN',  # Ajuste conforme o GeoJSON
-        fill_color='YlGnBu' if color == 'blue' else 'YlOrRd' if color == 'red' else 'PuRd' if color == 'purple' else 'Greens',
-        fill_opacity=0.7,
-        line_opacity=0.2,
-        legend_name=f'Municípios com {BANDAS}',
-        bins=[0, 0.5, 1],  # Para mostrar apenas 0 e 1
-        highlight=True
-    ).add_to(m)
+    geo_data=merged_data.__geo_interface__,
+    data=merged_data,
+    columns=['NM_MUN', project_column],
+    key_on='feature.properties.NM_MUN',
+    fill_color=fill_color,
+    fill_opacity=0.7,
+    line_opacity=0.2,
+    legend_name=f'Municípios com {projeto_nome}',
+    highlight=True
+            ).add_to(m)
+
+
+    # Adiciona tooltip
     choropleth.geojson.add_child(
         folium.features.GeoJsonTooltip(
             fields=['NM_MUN', project_column],
-            aliases=['Município:', f'{BANDAS}:'],
+            aliases=['Município:', f'{projeto_nome}:'],
             localize=True,
-            style=("background-color: white; color: #333333; font-family: arial; font-size: 12px; padding: 10px;")
+            style=(
+                "background-color: white; color: #333333; "
+                "font-family: arial; font-size: 12px; padding: 10px;"
+            )
         )
     )
-# Adicionar tooltip com nome do município
-    folium.features.GeoJson(
-        merged_data,
-        style_function=lambda x: {
-            'fillColor': color if x['properties'][project_column] == 1 else 'lightgray',
-            'color': 'black',
-            'weight': 0.5,
-            'fillOpacity': 0.7 if x['properties'][project_column] == 1 else 0.3
-        },
-        tooltip=folium.features.GeoJsonTooltip(
-            fields=['NM_MUN', project_column],
-            aliases=['Município:', f'{BANDAS}:'],
-            localize=True,
-            style=("background-color: white; color: #333333; font-family: arial; font-size: 12px; padding: 10px;")
-        )
-    ).add_to(m)
-    
+
     return m
 
 def main():
@@ -182,8 +190,8 @@ def run_data_loading():
             shapefile_path = "data/ES_Municipios_2024.shp"  # AJUSTE ESTE CAMINHO
             csv_path = "data/df_bandas.csv"  # AJUSTE SE NECESSÁRIO
         
-            geo_data = load_geodata('data/ES_Municipios_2024.shp')
-            project_data = load_project_data('data/df_bandas.csv')
+            geo_data = load_geodata(shapefile_path)
+            project_data = load_project_data(csv_path)
         except Exception as e:
             st.error(f"Erro ao carregar arquivos fixos: {e}")
             return None, None
@@ -204,36 +212,35 @@ st.text("Quantidade de Estudantes Bandas:")
         
 
 with col2:
-    #st.subheader("Orquestra de Violões nas Escolas")
     st.markdown(
-    """
-    <h1 style='font-size:20px; color:#808000;'>
-        Projeto Orquestra de Violões nas Escolas
-    </h1>
-    """,
-    unsafe_allow_html=True
-)
-    st.image("fotos/violões.jpeg", caption="violões")
-    with st.container(border=True,horizontal=True):
-     st.text("Quantidade de Escolas Violões:")
-     st.text("Quantidade de Estudantes Violões:")
+        """
+        <h1 style='font-size:20px; color:#808000;'>
+            Projeto Orquestra de Violões nas Escolas
+        </h1>
+        """,
+        unsafe_allow_html=True
+    )
+    st.image("fotos/violões.jpeg", caption="Orquestra de Violões nas Escolas")
+    st.text("Quantidade de Escolas Violões:")
+    st.text("Quantidade de Estudantes Violões:")
 
-col3, col4=st.columns([0.50,0.50])
+# -----------------------------------------------------------
+# OUTRAS SEÇÕES DE PROJETOS
+# -----------------------------------------------------------
+col3, col4 = st.columns([0.5, 0.5])
 
 with col3:
-    #col3.subheader("Projeto Corais nas Escolas")
     st.markdown(
-    """
-    <h1 style='font-size:20px; color:#808000;'>
-        Projeto Corais nas Escolas
-    </h1>
-    """,
-    unsafe_allow_html=True
-)
-    st.image("fotos/coral.jpeg", caption="coral")
-    with st.container(border=True,horizontal=True):
-     st.text("Quantidade de Escolas Corais:")
-     st.text("Quantidade de Estudantes Corais:")
+        """
+        <h1 style='font-size:20px; color:#808000;'>
+            Projeto Corais nas Escolas
+        </h1>
+        """,
+        unsafe_allow_html=True
+    )
+    st.image("fotos/coral.jpeg", caption="Corais nas Escolas")
+    st.text("Quantidade de Escolas Corais:")
+    st.text("Quantidade de Estudantes Corais:")
 
 with col4:
        #col4.subheader("Projeto Orquestra Sinfônica Jovem")
@@ -249,3 +256,5 @@ with col4:
        with st.container(border=True,horizontal=True):
         st.text("Quantidade de Escolas Sinfônica:")
         st.text("Quantidade de Estudantes Sinfônica:")
+
+

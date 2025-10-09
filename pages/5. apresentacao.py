@@ -44,7 +44,7 @@ st.set_page_config(page_title="Programa Música na Rede", layout="wide")
 
 # Função para carregar os dados geográficos
 @st.cache_data
-def load_geodata():
+def load_geodata(caminho_geodata):
     """Carrega os dados do shapefile"""
     return gpd.read_file('data/ES_Municipios_2024.shp')
 

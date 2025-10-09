@@ -140,52 +140,57 @@ def main():
     # Se estiver usando dados fixos (sem upload), ajuste os caminhos aqui:
 USE_UPLOAD = False  # Mude para True se quiser usar upload
 
-if USE_UPLOAD:
-    if csv_file and shp_file and shx_file and dbf_file:
-        # Salvar arquivos temporários
-        with tempfile.TemporaryDirectory() as tmp_dir:
-            # Salvar arquivos do shapefile
-            shp_path = os.path.join(tmp_dir, shp_file.name)
-            with open(shp_path, 'wb') as f:
-                f.write(shp_file.getvalue())
-            
-            shx_path = os.path.join(tmp_dir, shx_file.name)
-            with open(shx_path, 'wb') as f:
-                f.write(shx_file.getvalue())
-            
-            dbf_path = os.path.join(tmp_dir, dbf_file.name)
-            with open(dbf_path, 'wb') as f:
-                f.write(dbf_file.getvalue())
-            
-            if prj_file:
-                prj_path = os.path.join(tmp_dir, prj_file.name)
-                with open(prj_path, 'wb') as f:
-                    f.write(prj_file.getvalue())
+def run_data_loading():
+    if USE_UPLOAD:
+        if csv_file and shp_file and shx_file and dbf_file:
+            # Salvar arquivos temporários
+            with tempfile.TemporaryDirectory() as tmp_dir:
+                # Salvar arquivos do shapefile
+                shp_path = os.path.join(tmp_dir, shp_file.name)
+                with open(shp_path, 'wb') as f:
+                    f.write(shp_file.getvalue())
+                
+                shx_path = os.path.join(tmp_dir, shx_file.name)
+                with open(shx_path, 'wb') as f:
+                    f.write(shx_file.getvalue())
+                
+                dbf_path = os.path.join(tmp_dir, dbf_file.name)
+                with open(dbf_path, 'wb') as f:
+                    f.write(dbf_file.getvalue())
+                
+                if prj_file:
+                    prj_path = os.path.join(tmp_dir, prj_file.name)
+                    with open(prj_path, 'wb') as f:
+                        f.write(prj_file.getvalue())
 
-            # Carregar dados
-            geo_data = load_geodata(shp_path)
-            project_data = load_project_data(csv_file)
+                # Carregar dados
+                geo_data = load_geodata(shp_path)
+                project_data = load_project_data(csv_file)
+        else:
+            st.warning("Por favor, carregue todos os arquivos necessários (CSV, SHP, SHX, DBF)")
+            return None, None
     else:
-        st.warning("Por favor, carregue todos os arquivos necessários (CSV, SHP, SHX, DBF)")
-        return
-else:
-    # Usando caminhos fixos - AJUSTE ESTES CAMINHOS PARA OS SEUS ARQUIVOS
-    try:
-        shapefile_path = "data/ES_Municipios_2024.shp"  # AJUSTE ESTE CAMINHO
-        csv_path = "df_bandas.csv"  # AJUSTE SE NECESSÁRIO
-    
-        geo_data = load_geodata(shapefile_path)
-        project_data = load_project_data(csv_path)
-    except Exception as e:
-        st.error(f"Erro ao carregar arquivos fixos: {e}")
-        return
+        # Usando caminhos fixos - AJUSTE ESTES CAMINHOS PARA OS SEUS ARQUIVOS
+        try:
+            shapefile_path = "data/ES_Municipios_2024.shp"  # AJUSTE ESTE CAMINHO
+            csv_path = "df_bandas.csv"  # AJUSTE SE NECESSÁRIO
+        
+            geo_data = load_geodata(shapefile_path)
+            project_data = load_project_data(csv_path)
+        except Exception as e:
+            st.error(f"Erro ao carregar arquivos fixos: {e}")
+            return None, None
+
+    return geo_data, project_data
+
+geo_data, project_data = run_data_loading()
 
 # Verificar se os dados foram carregados corretamente
 st.sidebar.subheader("Pré-visualização dos Dados")
-if st.sidebar.checkbox("Mostrar dados geográficos"):
+if geo_data is not None and st.sidebar.checkbox("Mostrar dados geográficos"):
     st.sidebar.write(geo_data.head())
 
-if st.sidebar.checkbox("Mostrar dados dos projetos"):
+if project_data is not None and st.sidebar.checkbox("Mostrar dados dos projetos"):
     st.sidebar.write(project_data.head())
 
 st.text("Quantidade de Estudantes Bandas:")

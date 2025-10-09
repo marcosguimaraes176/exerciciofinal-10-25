@@ -7,7 +7,7 @@ from streamlit_folium import st_folium
 import os
 
 # -----------------------------------------------------------
-# CONFIGURAÇÃO GERAL DA PÁGINA
+# CONFIGURAÇÃO GERAL DA PÁGINA 2 
 # -----------------------------------------------------------
 st.set_page_config(page_title="Programa Música na Rede", layout="wide")
 

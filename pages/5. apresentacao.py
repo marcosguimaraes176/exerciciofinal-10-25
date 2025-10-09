@@ -61,7 +61,6 @@ project_data = pd.read_csv("data/df_bandas.csv")
         
 # Função para criar mapa
 def create_choropleth_map(geo_data, project_data, BANDAS, blue):
-    st_folium(mapa, width=400, height=300)
 
 # Merge dos dados geográficos com os dados do projeto
     merged_data = geo_data.merge(

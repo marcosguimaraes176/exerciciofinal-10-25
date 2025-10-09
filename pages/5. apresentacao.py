@@ -180,10 +180,10 @@ def run_data_loading():
         # Usando caminhos fixos - AJUSTE ESTES CAMINHOS PARA OS SEUS ARQUIVOS
         try:
             shapefile_path = "data/ES_Municipios_2024.shp"  # AJUSTE ESTE CAMINHO
-            csv_path = "df_bandas.csv"  # AJUSTE SE NECESSÁRIO
+            csv_path = "data/df_bandas.csv"  # AJUSTE SE NECESSÁRIO
         
-            geo_data = load_geodata(shapefile_path)
-            project_data = load_project_data(csv_path)
+            geo_data = load_geodata('data/ES_Municipios_2024.shp')
+            project_data = load_project_data('data/df_bandas.csv')
         except Exception as e:
             st.error(f"Erro ao carregar arquivos fixos: {e}")
             return None, None

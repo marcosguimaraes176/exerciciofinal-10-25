@@ -55,7 +55,7 @@ def load_project_data(csv_path):
     return pd.read_csv(csv_path)
 
 geo_data = gpd.read_file("data/ES_Municipios_2024.shp")
-project_data = pd.read_csv("df_bandas.csv")
+project_data = pd.read_csv("data/df_bandas.csv")
 
     
         

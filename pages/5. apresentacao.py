@@ -141,6 +141,13 @@ def main():
 USE_UPLOAD = False  # Mude para True se quiser usar upload
 
 def run_data_loading():
+    # Definir as variáveis de upload dentro da função para garantir o escopo correto
+    csv_file = st.sidebar.file_uploader("Carregar arquivo CSV", type=['csv'], key='csv')
+    shp_file = st.sidebar.file_uploader("Carregar arquivo .shp", type=['shp'], key='shp')
+    shx_file = st.sidebar.file_uploader("Carregar arquivo .shx", type=['shx'], key='shx')
+    dbf_file = st.sidebar.file_uploader("Carregar arquivo .dbf", type=['dbf'], key='dbf')
+    prj_file = st.sidebar.file_uploader("Carregar arquivo .prj", type=['prj'], key='prj')
+
     if USE_UPLOAD:
         if csv_file and shp_file and shx_file and dbf_file:
             # Salvar arquivos temporários

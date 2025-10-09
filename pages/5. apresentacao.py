@@ -44,7 +44,7 @@ st.set_page_config(page_title="Programa Música na Rede", layout="wide")
 
 # Função para carregar os dados geográficos
 @st.cache_data
-def load_geodata():
+def load_geodata(caminho_geotada):
     """Carrega os dados do shapefile"""
     return gpd.read_file('data/ES_Municipios_2024.shp')
 
@@ -55,7 +55,7 @@ def load_project_data(csv_path):
     return pd.read_csv(csv_path)
 
 geo_data = gpd.read_file("data/ES_Municipios_2024.shp")
-project_data = pd.read_csv("df_bandas.csv")
+project_data = pd.read_csv(r"data/df_bandas.csv")
 
     
         
@@ -180,7 +180,7 @@ def run_data_loading():
         # Usando caminhos fixos - AJUSTE ESTES CAMINHOS PARA OS SEUS ARQUIVOS
         try:
             shapefile_path = "data/ES_Municipios_2024.shp"  # AJUSTE ESTE CAMINHO
-            csv_path = "df_bandas.csv"  # AJUSTE SE NECESSÁRIO
+            csv_path = "data/df_bandas.csv"  # AJUSTE SE NECESSÁRIO
         
             geo_data = load_geodata(shapefile_path)
             project_data = load_project_data(csv_path)
@@ -249,3 +249,5 @@ with col4:
        with st.container(border=True,horizontal=True):
         st.text("Quantidade de Escolas Sinfônica:")
         st.text("Quantidade de Estudantes Sinfônica:")
+
+

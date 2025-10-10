@@ -138,6 +138,9 @@ with col1:
     mapa_bandas = create_choropleth_map(geo_data, project_data, projeto_nome="BANDAS", color="blue")
     st_folium(mapa_bandas, width=700, height=500)
 
+st.text("Quantidade de Estudantes Bandas:<br>2023:1.282<br>2024:1.356<br>2025:1.289")
+
+
 # -----------------------------------------------------------
 # LADO DIREITO: ORQUESTRA DE VIOLÕES
 # -----------------------------------------------------------
@@ -155,7 +158,8 @@ with col2:
     project_data_V = load_project_data("data/df_violao.csv")
     mapa_violões = create_choropleth_map(geo_data, project_data_V, projeto_nome="VIOLÕES", color="red")
     st_folium(mapa_violões, width=700, height=500)
-    st.text("Quantidade de Estudantes Violões:")
+
+    st.text("Quantidade de Estudantes Violões:<br>2023:3.441<br>2024:2.295<br>2025:2.720")
 
 # -----------------------------------------------------------
 # OUTRAS SEÇÕES DE PROJETOS
@@ -176,7 +180,8 @@ with col3:
     project_data_C = load_project_data("data/df_corais.csv")
     mapa_corais = create_choropleth_map(geo_data, project_data_C, projeto_nome="CORAIS", color="purple")
     st_folium(mapa_corais, width=700, height=500)
-    st.text("Quantidade de Estudantes Corais:")
+
+    st.text("Quantidade de Estudantes Corais:<br>2023:1.158<br>2024:1.434<br>2025:1.489")
 
 with col4:
     st.markdown(
@@ -193,6 +198,6 @@ with col4:
     mapa_sinfônica = create_choropleth_map(geo_data, project_data_S, projeto_nome="ORQUESTRA", color="yellow")
     st_folium(mapa_sinfônica, width=700, height=500)
     
-    st.text("Quantidade de Estudantes Sinfônica:")
+    st.text("Quantidade de Estudantes Sinfônica:<br>2023:476<br>2024:501<br>2025:464")
 
    

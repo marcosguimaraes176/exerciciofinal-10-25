@@ -2,7 +2,7 @@ import streamlit as st
 
 col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
-    st.image("fotos/ifes.png", width=600)
+    st.image("fotos/ifes.png", width=800)
 
     
 def titulo_com_tamanho(texto, tamanho=36, fonte='Georgia', negrito=True, alinhamento = 'center', cor='#191970'):

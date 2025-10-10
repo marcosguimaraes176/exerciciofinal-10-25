@@ -195,26 +195,6 @@ with col4:
     
     st.text("Quantidade de Estudantes Sinfônica:")
 
-def get_estudantes_projeto(csv_path):
-    """Carrega dados de estudantes atendidos por projeto."""
-    try:
-        df = pd.read_csv(csv_path)
-        # Verifica as colunas COM "_atendidos_"
-        if all(col in df.columns for col in ['Alunos_atendidos_2023', 'Alunos_atendidos_2024', 'Alunos_atendidos_2025']):
-            return df.iloc[0]
-        else:
-            # Mostra quais colunas realmente existem
-            st.warning(f"Colunas encontradas: {list(df.columns)}")
-            st.warning("Colunas esperadas: ['Alunos_atendidos_2023', 'Alunos_atendidos_2024', 'Alunos_atendidos_2025']")
-            return None
-    except Exception as e:
-        st.error(f"Erro ao carregar dados de estudantes: {e}")
-        return None
-
-with st.container():
-    st.subheader("ORQUESTRA")
-    
-    # SUAS INFORMAÇÕES EXISTENTES...
     
     # ⭐⭐ TABELA ESTILIZADA ⭐⭐
     dados_orquestra = get_estudantes_projeto("data/df_orquestra_estudantes.csv")

@@ -3,7 +3,7 @@ import streamlit as st
 st.image("fotos/ifes.png")
 
     
-def titulo_com_tamanho(texto, tamanho=36, fonte='Georgia', negrito=True, cor='F5276C'):
+def titulo_com_tamanho(texto, tamanho=36, fonte='Georgia', negrito=True, cor='#191970'):
     """Função para criar texto com tamanho personalizado"""
     estilo_negrito = "font-weight: bold;" if negrito else ""
     
@@ -11,14 +11,15 @@ def titulo_com_tamanho(texto, tamanho=36, fonte='Georgia', negrito=True, cor='F5
                 unsafe_allow_html=True)
 
 
-titulo_com_tamanho("Instituto Federal do Espírito Santo", tamanho=36, cor='F5276C')
+titulo_com_tamanho("Instituto Federal do Espírito Santo", tamanho=36, cor='#191970')
 # st.title("Instituto Federal do Espírito Santo - IFES") 
 
-def texto_com_tamanho(texto, tamanho=30, cor='F54927'):
+def texto_com_tamanho(texto, tamanho=30, fonte='Verdana', italico=True, cor='#191970'):
     """Função para criar texto com tamanho personalizado"""
-    st.markdown(f"<p style='font-size: {tamanho}px; color: {cor};'>{texto}</p>", 
+    estilo_italico = "font-style: italic;" if italico else ""
+    st.markdown(f"<p style='font-size: {tamanho}px; ont-family: {fonte}; color: {cor}; {estilo_italico};'>{texto}</p>", 
                 unsafe_allow_html=True)
-texto_com_tamanho("Campus Serra", tamanho=30, cor='F54927')
+texto_com_tamanho("Campus Serra", tamanho=30, cor='#191970')
 
 
 titulo_com_tamanho("Disciplina:Cloud Computing para Produtos de Dados", tamanho=36, cor='#0000ff')
@@ -26,5 +27,7 @@ texto_com_tamanho("Professor Maxwell Monteiro", tamanho=30, cor='#1e90ff')
 #st.title("Disciplina:Cloud Computing para Produtos de Dados")
 #st.text("Professor Maxwell Monteiro")
 
-st.title("Pesquisa: Programa Música na Rede")
-st.text("Aluno: Marcos Valerio Guimaraes")
+titulo_com_tamanho("Programa Música na Rede", tamanho=36, cor='#008080')
+#st.title("Pesquisa: Programa Música na Rede")
+texto_com_tamanho("Aluno: Marcos Valério Guimarães", tamanho=30, cor='#5f8080')
+#st.text("Aluno: Marcos Valerio Guimaraes")

@@ -10,7 +10,7 @@ def texto_com_tamanho(texto, tamanho=16, cor='blue'):
 st.title("Instituto Federal do Espírito Santo - IFES") 
 
 
-st.text("Campus Serra")
+texto_com_tamanho("Campus Serra")
 
 st.title("Disciplina:Cloud Computing para Produtos de Dados")
 st.text("Professor Maxwell Monteiro")

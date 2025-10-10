@@ -195,28 +195,4 @@ with col4:
     
     st.text("Quantidade de Estudantes Sinfônica:")
 
-    
-    # ⭐⭐ TABELA ESTILIZADA ⭐⭐
-    dados_orquestra = get_estudantes_projeto("data/df_orquestra_estudantes.csv")
-    if dados_orquestra is not None:
-        st.write("### 📊 Estudantes Atendidos")
-        
-        # Métricas em colunas
-        col1, col2, col3 = st.columns(3)
-        with col1:
-            st.metric("2023", f"{dados_orquestra['Alunos_2023']:,}")
-        with col2:
-            st.metric("2024", f"{dados_orquestra['Alunos_2024']:,}")
-        with col3:
-            st.metric("2025", f"{dados_orquestra['Alunos_2025']:,}")
-        
-        # Tabela detalhada
-        tabela = pd.DataFrame({
-            'Ano': ['2023', '2024', '2025'],
-            'Estudantes Atendidos': [
-                dados_orquestra['Alunos_2023'],
-                dados_orquestra['Alunos_2024'],
-                dados_orquestra['Alunos_2025']
-            ]
-        })
-        st.dataframe(tabela, hide_index=True, use_container_width=True)
+   

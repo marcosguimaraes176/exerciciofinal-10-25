@@ -16,7 +16,7 @@ def titulo_com_tamanho(texto, tamanho=36, fonte='Georgia', negrito=True, alinham
 titulo_com_tamanho("Instituto Federal do Espírito Santo", tamanho=36, cor='#191970')
 # st.title("Instituto Federal do Espírito Santo - IFES") 
 
-def texto_com_tamanho(texto, tamanho=30, fonte='Verdana', italico=True, alinhamento = 'center1, cor='#191970'):
+def texto_com_tamanho(texto, tamanho=30, fonte='Verdana', italico=True, alinhamento = 'center', cor='#191970'):
     """Função para criar texto com tamanho personalizado"""
     estilo_italico = "font-style: italic;" if italico else ""
     st.markdown(f"<p style='font-size: {tamanho}px; ont-family: {fonte}; color: {cor}; {estilo_italico}; text-align: {alinhamento}'>{texto}</p>", 

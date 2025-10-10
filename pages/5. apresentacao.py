@@ -151,7 +151,10 @@ with col2:
         unsafe_allow_html=True
     )
     st.image("fotos/violões.jpeg", caption="Orquestra de Violões nas Escolas")
-    st.text("Quantidade de Escolas Violões:")
+    st.text("Escolas por Municípios Escolas Violões:")
+    project_data_V = load_project_data("data/df_violões.csv")
+    mapa_violões = create_choropleth_map(geo_data, project_data_V, projeto_nome="VIOLÕES", color="red")
+    st_folium(mapa_violões, width=700, height=500)
     st.text("Quantidade de Estudantes Violões:")
 
 # -----------------------------------------------------------
@@ -169,7 +172,10 @@ with col3:
         unsafe_allow_html=True
     )
     st.image("fotos/coral.jpeg", caption="Corais nas Escolas")
-    st.text("Quantidade de Escolas Corais:")
+    st.text("Escolas por Municípios Escolas Corais:")
+    project_data_C = load_project_data("data/df_corais.csv")
+    mapa_corais = create_choropleth_map(geo_data, project_data_C, projeto_nome="CORAIS", color="purple")
+    st_folium(mapa_corais, width=700, height=500)
     st.text("Quantidade de Estudantes Corais:")
 
 with col4:
@@ -182,5 +188,8 @@ with col4:
         unsafe_allow_html=True
     )
     st.image("fotos/sinfônica.jpeg", caption="Orquestra Sinfônica Jovem")
-    st.text("Quantidade de Escolas Sinfônica:")
+    st.text("Escolas por Município Escolas Sinfônica:")
+    project_data_S = load_project_data("data/df_sinfônica.csv")
+    mapa_sinfônica = create_choropleth_map(geo_data, project_data_S, projeto_nome="SINFÔNICA", color="green")
+    st_folium(mapa_sinfônica, width=700, height=500)
     st.text("Quantidade de Estudantes Sinfônica:")

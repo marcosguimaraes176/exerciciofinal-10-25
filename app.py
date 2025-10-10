@@ -1,10 +1,9 @@
 import streamlit as st
 
-st.set_page_config(layout="wide")
+
 col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
-    
-    st.image("fotos/ifes.png", width=400)
+        st.image("fotos/ifes.png", width=400)
 
     
 def titulo_com_tamanho(texto, tamanho=36, fonte='Georgia', negrito=True, alinhamento = 'center', cor='#191970'):

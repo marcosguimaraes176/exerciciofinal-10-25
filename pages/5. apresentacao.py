@@ -198,7 +198,7 @@ def get_estudantes_projeto(csv_path):
     try:
         df = pd.read_csv(csv_path)
         # Espera colunas: 'Alunos_2023', 'Alunos_2024', 'Alunos_2025'
-        if all(col in df.columns for col in ['Alunos_2023', 'Alunos_2024', 'Alunos_2025']):
+        if all(col in df.columns for col in ['Alunos_atendidos_2023', 'Alunos_atendidos_2024', 'Alunos_atendidos_2025']):
             return df.iloc[0]
         else:
             st.warning("Colunas esperadas não encontradas no arquivo de estudantes.")

@@ -1,7 +1,9 @@
 import streamlit as st
 
-
-st.image("fotos/maxresdefault-2.jpg", width=400)
+col1, col2, col3 = st.columns([1, 2, 1])
+with col2:
+    st.image("fotos/maxresdefault-2.jpg", width=1200)
+#st.image("fotos/maxresdefault-2.jpg", width=1200)
 
 def titulo_com_tamanho(texto, tamanho=36, fonte='Bookman Old Style', negrito=True, alinhamento = 'center', cor='#191970'):
     """Função para criar texto com tamanho personalizado"""

@@ -1,6 +1,9 @@
 import streamlit as st
 
-st.title("Exercicio n 1") 
+st.image("fotos/ifes.png")
+
+st.title("Instituto Federal do Espírito Santo - IFES") 
+st.text("Campus Serra")
 
 st.title("Disciplina:Cloud Computing para Produtos de Dados")
 st.text("Professor Maxwell Monteiro")

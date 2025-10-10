@@ -190,6 +190,35 @@ with col4:
     st.image("fotos/sinfônica.jpeg", caption="Orquestra Sinfônica Jovem")
     st.text("Escolas por Município Escolas Sinfônica:")
     project_data_S = load_project_data("data/df_orquestra.csv")
-    mapa_sinfônica = create_choropleth_map(geo_data, project_data_S, projeto_nome="SINFÔNICA", color="green")
+    mapa_sinfônica = create_choropleth_map(geo_data, project_data_S, projeto_nome="ORQUESTRA", color="yellow")
     st_folium(mapa_sinfônica, width=700, height=500)
     st.text("Quantidade de Estudantes Sinfônica:")
+with st.container():
+    st.subheader("ORQUESTRA")
+    
+    # SUAS INFORMAÇÕES EXISTENTES...
+    
+    # ⭐⭐ TABELA ESTILIZADA ⭐⭐
+    dados_orquestra = get_estudantes_projeto("data/df_orquestra_estudantes.csv")
+    if dados_orquestra is not None:
+        st.write("### 📊 Estudantes Atendidos")
+        
+        # Métricas em colunas
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.metric("2023", f"{dados_orquestra['Alunos_2023']:,}")
+        with col2:
+            st.metric("2024", f"{dados_orquestra['Alunos_2024']:,}")
+        with col3:
+            st.metric("2025", f"{dados_orquestra['Alunos_2025']:,}")
+        
+        # Tabela detalhada
+        tabela = pd.DataFrame({
+            'Ano': ['2023', '2024', '2025'],
+            'Estudantes Atendidos': [
+                dados_orquestra['Alunos_2023'],
+                dados_orquestra['Alunos_2024'],
+                dados_orquestra['Alunos_2025']
+            ]
+        })
+        st.dataframe(tabela, hide_index=True, use_container_width=True)

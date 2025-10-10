@@ -3,11 +3,20 @@ import streamlit as st
 st.image("fotos/ifes.png")
 
 
-def titulo_com_tamanho(texto, tamanho=32, cor='blue'):
+#def titulo_com_tamanho(texto, tamanho=32, fonte = 'Georgia', negrito=True cor='blue'):
+    #"""Função para criar texto com tamanho personalizado"""
+    #st.markdown(f"<p style='font-size: {tamanho}px; font-family: {fonte} color: {cor}; {estilo_negrito}'>{texto}</p>", 
+                #unsafe_allow_html=True)
+    
+def titulo_com_tamanho(texto, tamanho=40, fonte='Georgia', negrito=True, cor='blue'):
     """Função para criar texto com tamanho personalizado"""
-    st.markdown(f"<p style='font-size: {tamanho}px; color: {cor};'>{texto}</p>", 
+    estilo_negrito = "font-weight: bold;" if negrito else ""
+    
+    st.markdown(f"<p style='font-size: {tamanho}px; font-family: {fonte}; color: {cor}; {estilo_negrito}'>{texto}</p>", 
                 unsafe_allow_html=True)
-titulo_com_tamanho("Instituto Federal do Espírito Santo", tamanho=32, cor='red')
+
+
+titulo_com_tamanho("Instituto Federal do Espírito Santo", tamanho=40, cor='red')
 # st.title("Instituto Federal do Espírito Santo - IFES") 
 
 def texto_com_tamanho(texto, tamanho=24, cor='blue'):

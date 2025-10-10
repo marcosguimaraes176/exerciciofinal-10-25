@@ -193,6 +193,20 @@ with col4:
     mapa_sinfônica = create_choropleth_map(geo_data, project_data_S, projeto_nome="ORQUESTRA", color="yellow")
     st_folium(mapa_sinfônica, width=700, height=500)
     st.text("Quantidade de Estudantes Sinfônica:")
+def get_estudantes_projeto(csv_path):
+    """Carrega dados de estudantes atendidos por projeto."""
+    try:
+        df = pd.read_csv(csv_path)
+        # Espera colunas: 'Alunos_2023', 'Alunos_2024', 'Alunos_2025'
+        if all(col in df.columns for col in ['Alunos_2023', 'Alunos_2024', 'Alunos_2025']):
+            return df.iloc[0]
+        else:
+            st.warning("Colunas esperadas não encontradas no arquivo de estudantes.")
+            return None
+    except Exception as e:
+        st.error(f"Erro ao carregar dados de estudantes: {e}")
+        return None
+
 with st.container():
     st.subheader("ORQUESTRA")
     

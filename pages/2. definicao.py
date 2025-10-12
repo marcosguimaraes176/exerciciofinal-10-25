@@ -19,7 +19,7 @@ st.text("Do Objetivo da pesquisa: Investigar a influência do Programa Música n
     # A imagem é colocada na coluna 2 (a central), centralizando-a
     #st.image("fotos/MnR SantaJazz.jpeg", use_container_width=True)
 
-st.header("Imagem do Projeto")
+#st.header("Imagem do Projeto")
 # Colunas: 1 (espaço vazio) | 4 (imagem) | 1 (espaço vazio)
 col_img_left, col_img_center, col_img_right = st.columns([1, 4, 1]) 
 

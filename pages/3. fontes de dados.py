@@ -59,7 +59,7 @@ df_musica = None
 
 # Carregamento da Primeira Tabela
 try:
-    st.info(f"Carregando {FILE_PROJETOS}...")
+    #st.info(f"Carregando {FILE_PROJETOS}...")
     df_projetos = pd.read_excel(FILE_PROJETOS)
 except FileNotFoundError:
     st.error(f"🚨 Erro: O arquivo '{FILE_PROJETOS}' não foi encontrado.")
@@ -68,7 +68,7 @@ except Exception as e:
 
 # Carregamento da Segunda Tabela
 try:
-    st.info(f"Carregando {FILE_MUSICA}...")
+    #st.info(f"Carregando {FILE_MUSICA}...")
     df_musica = pd.read_excel(FILE_MUSICA)
 except FileNotFoundError:
     st.error(f"🚨 Erro: O arquivo '{FILE_MUSICA}' não foi encontrado.")

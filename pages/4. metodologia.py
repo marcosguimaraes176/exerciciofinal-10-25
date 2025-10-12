@@ -1,6 +1,13 @@
 import streamlit as st
 
-st.title("Metodologia e Objetivos")
+def titulo_com_tamanho(texto, tamanho=36, fonte='Georgia', negrito=True, alinhamento = 'center', cor='#000080'):
+    """Função para criar texto com tamanho personalizado"""
+    estilo_negrito = "font-weight: bold;" if negrito else ""
+    
+    st.markdown(f"<p style='font-size: {tamanho}px; font-family: {fonte}; color: {cor}; {estilo_negrito}; text-align: {alinhamento}'>{texto}</p>", 
+                unsafe_allow_html=True)
+titulo_com_tamanho("Metodologia e Objetivos", tamanho=36, cor='#000080')
+
 
 st.text ("Pesquisa de campo para levantar dados de funcionamento do programa")
 st.text("Análise de dados fornecidos pela gestão do Programa Música na Rede")

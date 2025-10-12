@@ -15,7 +15,7 @@ st.title("🎵 Programa Música na Rede")
 st.markdown(
     """
     <h1 style='font-size:20px; color:#000080;'>
-        Dados por Escolas, Estudantes e Projetos:
+        Dados por Municípios, Estudantes e Projetos:
     </h1>
     """,
     unsafe_allow_html=True

@@ -9,17 +9,80 @@ import os
 # -----------------------------------------------------------
 # CONFIGURAÇÃO GERAL DA PÁGINA
 # -----------------------------------------------------------
+#st.set_page_config(page_title="Programa Música na Rede", layout="wide")
+
+#st.title("🎵 Programa Música na Rede")
+# st.markdown(
+    #"""
+    #<h1 style='font-size:20px; color:#000080;'>
+        #Dados por Municípios, Estudantes e Projetos:
+    #</h1>
+    #""",
+    #unsafe_allow_html=True
+#)
+
 st.set_page_config(page_title="Programa Música na Rede", layout="wide")
 
-st.title("🎵 Programa Música na Rede")
+# --- CSS para centralização e estilização dos títulos ---
+# Usamos o st.markdown com a flag unsafe_allow_html=True
 st.markdown(
     """
-    <h1 style='font-size:20px; color:#000080;'>
-        Dados por Municípios, Estudantes e Projetos:
-    </h1>
+    <style>
+    /* Estilo para o título principal */
+    .central-title {
+        text-align: center;
+        font-family: Georgia, serif;
+        font-size: 36px !important; /* Tamanho 36 */
+        color: #8B0000; /* Cor Vermelho Escuro (Borgonha) */
+        padding-bottom: 5px; /* Espaço entre o título e o subtítulo */
+    }
+
+    /* Estilo para o subtítulo */
+    .central-subtitle {
+        text-align: center;
+        font-family: Georgia, serif;
+        font-size: 20px; /* Mantendo o tamanho 20 para o subtítulo */
+        color: #4682B4; /* Cor Azul Aço */
+        margin-top: 0; /* Remove margem superior padrão */
+    }
+    </style>
     """,
     unsafe_allow_html=True
 )
+
+# --- Aplicação dos títulos usando as classes CSS ---
+
+# Título Principal (com ícone e estilo centralizado)
+st.markdown(
+    '<div class="central-title">🎵 Programa Música na Rede</div>',
+    unsafe_allow_html=True
+)
+
+# Subtítulo
+st.markdown(
+    '<p class="central-subtitle">Dados por Municípios, Estudantes e Projetos</p>',
+    unsafe_allow_html=True
+)
+
+st.markdown("---")
+
+# Exemplo de conteúdo abaixo dos títulos
+#st.write("Bem-vindo ao painel de controle do projeto de violão.")
+
+
+# Configuração da página
+#st.title("Programa Música na Rede")
+#st.header("Escolas, Estudantes, Projetos")
+#st.markdown(
+   # """
+    #<h1 style='font-size:20px; color:#000080;'>
+        #Dados por Escolas, Estudantes e Projetos:
+    #</h1>
+    #""",
+    #unsafe_allow_html=True
+#)
+
+
 
 # -----------------------------------------------------------
 # COLUNAS PRINCIPAIS DO LAYOUT

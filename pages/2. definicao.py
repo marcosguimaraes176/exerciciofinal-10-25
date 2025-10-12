@@ -17,4 +17,4 @@ col1, col2, col3 = st.columns([1, 4, 1])
 
 with col2:
     # A imagem é colocada na coluna 2 (a central), centralizando-a
-    st.image("fotos/MnR SantaJazz.jpeg", use_column_width=True)
+    st.image("fotos/MnR SantaJazz.jpeg", use_container_width=True)

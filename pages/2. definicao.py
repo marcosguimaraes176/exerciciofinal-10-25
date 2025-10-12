@@ -9,6 +9,6 @@ def titulo_com_tamanho(texto, tamanho=36, fonte='Georgia', negrito=True, alinham
     
 titulo_com_tamanho("Definição", tamanho=36, cor='#000080')
 
-st.text("Do tema: O Programa Música na Rede é uma iniciativa da SEDU-ES, FAPES e FAMES, que visa promover a educação musical nas escolas públicas do Espírito Santo.")
+st.text("Do tema: O Programa Música na Rede é uma iniciativa da SEDU-ES, FAPES e FAMES, que visa promover a educação musical nas escolas públicas do Espírito Santo. São ofertados quatro projetos: Bandas nas Escolas, Orquestra de Violões nas Escolas, Corais nas Escolas e Oruqestra Sinfônica Jovem nas Escolas")
 
 st.text("Do Objetivo da pesquisa: Investigar a influência do Programa Música na Rede no desempenho escolar dos estudantes da educação básica da Rede Estadual do Espírito Santo.")

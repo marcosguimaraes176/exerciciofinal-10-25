@@ -13,8 +13,19 @@ st.text("Do tema: O Programa Música na Rede é uma iniciativa da SEDU-ES, FAPES
 
 st.text("Do Objetivo da pesquisa: Investigar a influência do Programa Música na Rede no desempenho escolar dos estudantes da educação básica da Rede Estadual do Espírito Santo.")
 
-col1, col2, col3 = st.columns([1, 4, 1]) 
+#col1, col2, col3 = st.columns([1, 4, 1]) 
 
-with col2:
+#with col2:
     # A imagem é colocada na coluna 2 (a central), centralizando-a
-    st.image("fotos/MnR SantaJazz.jpeg", use_container_width=True)
+    #st.image("fotos/MnR SantaJazz.jpeg", use_container_width=True)
+
+st.header("Imagem do Projeto")
+# Colunas: 1 (espaço vazio) | 4 (imagem) | 1 (espaço vazio)
+col_img_left, col_img_center, col_img_right = st.columns([1, 4, 1]) 
+
+with col_img_center:
+    st.image(
+        "fotos/MnR SantaJazz.jpeg",
+        # Altere o número 500 para a largura desejada em pixels
+        width=400 
+    )

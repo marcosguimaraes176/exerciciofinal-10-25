@@ -10,7 +10,7 @@ from streamlit_folium import st_folium
 # -----------------------------------------------------------
 st.set_page_config(page_title="Programa Música na Rede", layout="wide")
 
-# --- CSS global para centralizar tudo ---
+# --- CSS global para títulos e textos ---
 st.markdown(
     """
     <style>
@@ -28,13 +28,6 @@ st.markdown(
         color: #4682B4;
         margin-top: 0;
     }
-    .centered {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        text-align: center;
-    }
     .centered-text {
         text-align: center;
     }
@@ -43,7 +36,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# --- Títulos ---
+# --- Títulos principais ---
 st.markdown('<div class="central-title">🎵 Programa Música na Rede</div>', unsafe_allow_html=True)
 st.markdown('<p class="central-subtitle">Dados por Municípios, Estudantes e Projetos</p>', unsafe_allow_html=True)
 st.markdown("---")
@@ -98,7 +91,7 @@ def create_choropleth_map(geo_data, project_data, projeto_nome, color):
         "red": "YlOrRd",
         "purple": "PuRd",
         "yellow": "Greens"
-    }[color]
+    }.get(color, "YlGnBu")
 
     choropleth = Choropleth(
         geo_data=merged_data.__geo_interface__,
@@ -134,24 +127,31 @@ except Exception as e:
     st.stop()
 
 # -----------------------------------------------------------
-# EXIBIÇÃO CONDICIONAL DO PROJETO ESCOLHIDO (CENTRALIZADO)
+# FUNÇÃO CENTRALIZADA DE EXIBIÇÃO
 # -----------------------------------------------------------
+def exibir_centralizado(elemento_func):
+    """Cria colunas para centralizar o elemento."""
+    col_esq, col_centro, col_dir = st.columns([1, 2, 1])
+    with col_centro:
+        elemento_func()
 
 def exibir_projeto(titulo, imagem, csv, nome_projeto, cor, texto_estudantes):
-    st.markdown(f"<div class='centered'><h1 style='font-size:22px; color:#808000;'>{titulo}</h1></div>", unsafe_allow_html=True)
-    st.markdown(f"<div class='centered'>", unsafe_allow_html=True)
-    st.image(imagem, caption=titulo, use_container_width=False)
-    st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown(f"<h1 style='font-size:22px; color:#808000; text-align:center;'>{titulo}</h1>", unsafe_allow_html=True)
 
+    # Centraliza imagem
+    exibir_centralizado(lambda: st.image(imagem, caption=titulo, use_container_width=False))
+
+    # Centraliza mapa
     project_data = load_project_data(csv)
     mapa = create_choropleth_map(geo_data, project_data, nome_projeto, cor)
-    st.markdown("<div class='centered'>", unsafe_allow_html=True)
-    st_folium(mapa, width=700, height=500)
-    st.markdown("</div>", unsafe_allow_html=True)
+    exibir_centralizado(lambda: st_folium(mapa, width=700, height=500))
 
+    # Centraliza texto dos dados
     st.markdown(f"<p class='centered-text'>{texto_estudantes}</p>", unsafe_allow_html=True)
 
-
+# -----------------------------------------------------------
+# EXIBIÇÃO DO PROJETO SELECIONADO
+# -----------------------------------------------------------
 if projeto_escolhido == "Bandas nas Escolas":
     exibir_projeto(
         "Projeto Bandas nas Escolas",

@@ -144,7 +144,7 @@ def exibir_projeto(titulo, imagem, csv, nome_projeto, cor, texto_estudantes):
     st.markdown("</div>", unsafe_allow_html=True)
 
     project_data = load_project_data(csv)
-    mapa = create_choropleth_map(geo_data, project_data, nome_projeto, color)
+    mapa = create_choropleth_map(geo_data, project_data, nome_projeto, cor)
     st.markdown("<div class='centered'>", unsafe_allow_html=True)
     st_folium(mapa, width=700, height=500)
     st.markdown("</div>", unsafe_allow_html=True)

@@ -129,24 +129,34 @@ except Exception as e:
 # -----------------------------------------------------------
 # FUNÇÃO CENTRALIZADA DE EXIBIÇÃO
 # -----------------------------------------------------------
-def exibir_centralizado(elemento_func):
-    """Cria colunas para centralizar o elemento."""
+def exibir_centralizado(conteudo_html):
+    """
+    Centraliza qualquer conteúdo Streamlit (imagem, mapa etc.)
+    dentro de colunas simétricas com HTML centralizado.
+    """
     col_esq, col_centro, col_dir = st.columns([1, 2, 1])
     with col_centro:
-        elemento_func()
+        st.markdown(
+            f"<div style='display: flex; justify-content: center; align-items: center; flex-direction: column;'>{conteudo_html}</div>",
+            unsafe_allow_html=True
+        )
 
 def exibir_projeto(titulo, imagem, csv, nome_projeto, cor, texto_estudantes):
     st.markdown(f"<h1 style='font-size:22px; color:#808000; text-align:center;'>{titulo}</h1>", unsafe_allow_html=True)
 
-    # Centraliza imagem
-    exibir_centralizado(lambda: st.image(imagem, caption=titulo, use_container_width=False))
+    # --- Centraliza imagem ---
+    col_esq, col_centro, col_dir = st.columns([1, 2, 1])
+    with col_centro:
+        st.image(imagem, caption=titulo, use_container_width=True)
 
-    # Centraliza mapa
+    # --- Centraliza mapa ---
     project_data = load_project_data(csv)
     mapa = create_choropleth_map(geo_data, project_data, nome_projeto, cor)
-    exibir_centralizado(lambda: st_folium(mapa, width=700, height=500))
+    col_esq, col_centro, col_dir = st.columns([1, 2, 1])
+    with col_centro:
+        st_folium(mapa, width=700, height=500)
 
-    # Centraliza texto dos dados
+    # --- Centraliza texto ---
     st.markdown(f"<p class='centered-text'>{texto_estudantes}</p>", unsafe_allow_html=True)
 
 # -----------------------------------------------------------

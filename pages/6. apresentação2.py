@@ -127,7 +127,7 @@ except Exception as e:
 # -----------------------------------------------------------
 if projeto_escolhido == "Bandas nas Escolas":
     st.markdown("<h1 style='font-size:20px; color:#808000;'>Projeto Bandas nas Escolas</h1>", unsafe_allow_html=True)
-    st.image("fotos/bandas.jpeg", caption="Bandas nas Escolas", use_container_width=False, width=500)
+    st.image("fotos/bandas.jpeg", caption="Bandas nas Escolas", use_container_width=False, width=600)
     project_data = load_project_data("data/df_bandas.csv")
     mapa = create_choropleth_map(geo_data, project_data, "BANDAS", color="blue")
     st_folium(mapa, width=700, height=500)
